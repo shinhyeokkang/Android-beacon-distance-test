@@ -41,37 +41,37 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         setContentView(R.layout.activity_ranging);
     }
 
-//    private void saveExcel() throws IOException { // rssiList를 받아 엑셀파일로 작성
-//        Workbook workbook = new HSSFWorkbook();
-//
-//        Sheet sheet = workbook.createSheet(); // 새로운 시트 생성
-//
-//        Row row = sheet.createRow(0); // 새로운 행 생성
-//        Cell cell;
-//
-//        cell = row.createCell(0); // 1번 셀 생성
-//        cell.setCellValue("TxPower"); // 1번 셀 값 입력
-//
-//        cell = row.createCell(1); // 2번 셀 생성
-//        cell.setCellValue("RSSI"); // 2번 셀 값 입력
-//
-//        for(int i = 0; i < rssiList.length ; i++){ // 데이터 엑셀에 입력
-//            row = sheet.createRow(i+1);
-//            cell = row.createCell(0);
-//            cell.setCellValue(Tx);
-//            cell = row.createCell(1);
-//            cell.setCellValue(rssiList[i]);
-//        }
-//
-//        File xlsFile = new File(getExternalFilesDir(null),"test.xls");
-//        try{
-//            FileOutputStream os = new FileOutputStream(xlsFile);
-//            workbook.write(os); // 외부 저장소에 엑셀 파일 생성
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
-//        Toast.makeText(getApplicationContext(),xlsFile.getAbsolutePath()+"에 저장되었습니다",Toast.LENGTH_SHORT).show();
-//    }
+    private void saveExcel() throws IOException { // rssiList를 받아 엑셀파일로 작성
+        Workbook workbook = new HSSFWorkbook();
+
+        Sheet sheet = workbook.createSheet(); // 새로운 시트 생성
+
+        Row row = sheet.createRow(0); // 새로운 행 생성
+        Cell cell;
+
+        cell = row.createCell(0); // 1번 셀 생성
+        cell.setCellValue("TxPower"); // 1번 셀 값 입력
+
+        cell = row.createCell(1); // 2번 셀 생성
+        cell.setCellValue("RSSI"); // 2번 셀 값 입력
+
+        for(int i = 0; i < rssiList.length ; i++){ // 데이터 엑셀에 입력
+            row = sheet.createRow(i+1);
+            cell = row.createCell(0);
+            cell.setCellValue(Tx);
+            cell = row.createCell(1);
+            cell.setCellValue(rssiList[i]);
+        }
+
+        File xlsFile = new File(getExternalFilesDir(null),"test.xls");
+        try{
+            FileOutputStream os = new FileOutputStream(xlsFile);
+            workbook.write(os); // 외부 저장소에 엑셀 파일 생성
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        Toast.makeText(getApplicationContext(),xlsFile.getAbsolutePath()+"에 저장되었습니다",Toast.LENGTH_SHORT).show();
+    }
 
 
     @Override 
@@ -100,18 +100,18 @@ public class RangingActivity extends Activity implements BeaconConsumer {
               if (beacons.size() > 0) {
                   Log.d(TAG, "didRangeBeaconsInRegion called with beacon count:  "+beacons.size());
                   Beacon firstBeacon = beacons.iterator().next();
-                  //Tx = firstBeacon.getTxPower();
-                  logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away. \n" +"Rssi: " + firstBeacon.getRssi() + "TxPower: " + firstBeacon.getTxPower());
-//                  rssiList[count] = firstBeacon.getRssi();
-//                  if(count==100){
-//                      try {
-//                          saveExcel();
-//                      } catch (IOException e) {
-//                          e.printStackTrace();
-//                      }
-//                      logToDisplay("List has filled!!!!!!!!!!!!"); // 완성 문구 출력
-//                  }
-//                  count++;
+                  Tx = firstBeacon.getTxPower();
+                  logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away. \n" +"Rssi: " + firstBeacon.getRssi() + " TxPower: " + firstBeacon.getTxPower());
+                  rssiList[count] = firstBeacon.getRssi();
+                  if(count==100){
+                      try {
+                          saveExcel();
+                      } catch (IOException e) {
+                          e.printStackTrace();
+                      }
+                      logToDisplay("List has filled!!!!!!!!!!!!"); // 완성 문구 출력
+                  }
+                  count++;
               }
            }
 
