@@ -22,6 +22,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
     //implementation project(':android-beacon-library:lib')
     implementation 'org.altbeacon:android-beacon-library:2+'
-    implementation "org.apache.poi:poi:3.17"
-
+    //implementation group: 'org.apache.poi', name: 'poi', version: '3.17'
+    //implementation "org.apache.poi:poi-ooxml:3.17" //라이브러리 자체에 중복 오류가 존재
+    implementation files('libs/poishadow-all.jar') //개선버전 : xlsx파일 읽기 위해선 필수
 }
