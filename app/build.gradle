@@ -6,9 +6,8 @@ android {
 
     defaultConfig {
         applicationId "org.altbeacon.beaconreference"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 29
-        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -24,5 +23,5 @@ dependencies {
     //implementation project(':android-beacon-library:lib')
     implementation 'org.altbeacon:android-beacon-library:2+'
     implementation "org.apache.poi:poi:3.17"
-    //implementation "org.apache.poi:poi-ooxml:3.17"
+
 }

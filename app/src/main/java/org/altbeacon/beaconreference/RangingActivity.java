@@ -31,9 +31,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 public class RangingActivity extends Activity implements BeaconConsumer {
     protected static final String TAG = "RangingActivity";
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
-    private int[] rssiList = new int[100];
+    private int[] rssiList = new int[1000000];
     private int Tx;
     private int count=0;
+    private int num=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         cell = row.createCell(1); // 2번 셀 생성
         cell.setCellValue("RSSI"); // 2번 셀 값 입력
 
-        for(int i = 0; i < rssiList.length ; i++){ // 데이터 엑셀에 입력
+        for(int i = 0; i < 50; i++){ // 데이터 엑셀에 입력
             row = sheet.createRow(i+1);
             cell = row.createCell(0);
             cell.setCellValue(Tx);
@@ -64,6 +65,7 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         }
 
         File xlsFile = new File(getExternalFilesDir(null),"test.xls");
+        num++; // 파일 생성시 마다 숫자 증가시켜서 중복 회피
         try{
             FileOutputStream os = new FileOutputStream(xlsFile);
             workbook.write(os); // 외부 저장소에 엑셀 파일 생성
@@ -101,14 +103,15 @@ public class RangingActivity extends Activity implements BeaconConsumer {
                   Log.d(TAG, "didRangeBeaconsInRegion called with beacon count:  "+beacons.size());
                   Beacon firstBeacon = beacons.iterator().next();
                   Tx = firstBeacon.getTxPower();
-                  logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away. \n" +"Rssi: " + firstBeacon.getRssi() + "TxPower: " + firstBeacon.getTxPower());
+                  logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away. \n" +"Rssi: " + firstBeacon.getRssi() + " TxPower: " + firstBeacon.getTxPower());
                   rssiList[count] = firstBeacon.getRssi();
-                  if(count==100){
+                  if(count==50){
                       try {
                           saveExcel();
                       } catch (IOException e) {
                           e.printStackTrace();
                       }
+                      count=0; // 초기화
                       logToDisplay("List has filled!!!!!!!!!!!!"); // 완성 문구 출력
                   }
                   count++;
