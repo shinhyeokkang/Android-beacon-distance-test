@@ -23,5 +23,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
     //implementation project(':android-beacon-library:lib')
     implementation 'org.altbeacon:android-beacon-library:2+'
-    implementation 'org.apache.poi:poi:5.0.0'
+    implementation "org.apache.poi:poi:3.17"
+    //implementation "org.apache.poi:poi-ooxml:3.17"
 }
